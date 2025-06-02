@@ -26,7 +26,7 @@ function ToDo(){
     setToDolist(filterList)
   }
 
-  // function callback when we want to update task --> That needs to be done using .map function on Arrays
+  // function callback when we want to update every to-do's task --> That needs to be done using .map function on Arrays
   let upperCaseAll = function(){
     setToDolist( function(prevToDolist){
       return prevToDolist.map( (toDo) => {
@@ -34,7 +34,21 @@ function ToDo(){
       } )
     } )
   }
-  
+
+  // function callback when we want to update one task into upperCase
+  let upperCase = function(id){
+    setToDolist( function(prevToDolist){
+      return prevToDolist.map( function(toDo){
+        if(toDo.id == id){
+          return {...toDo, task: toDo.task.toUpperCase()};
+        }
+        else{
+          return {...toDo};
+        }
+      } )
+    } )
+  }
+
   return(
     <>
       <center>
@@ -47,7 +61,8 @@ function ToDo(){
               {taskObject.task} 
               {/* Each list child must have unique key property and we can that using npm package called uuid  */}
               &nbsp;&nbsp;  {/* Each top-level item inside a .map() should return a single element with a key prop. Right now, you’re returning a <> fragment with key on li, which won’t work as expected.  */}
-              <button onClick={() =>  (deleteTask(taskObject.id))} > Delete Task</button>
+              <button onClick={() => (deleteTask(taskObject.id))} > Delete Task</button>
+              <button onClick={() => (upperCase(taskObject.id))}>UpperCase It</button>
             </li>
         ) )}
       </ul>
