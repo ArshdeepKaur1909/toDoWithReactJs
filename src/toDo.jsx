@@ -5,6 +5,7 @@ function ToDo(){
   const [toDolist, setToDolist] = useState([]); // Now converting array of toDo list tasks into array of each toDo task in object with id and task key
   const [newValue, setNewValue] = useState("");
   
+  // function callback when we want to add new task --> That needs to be done using ...spread operator or concat in Arrays
   let addNewTask = function(){
     setToDolist( function(list){
       return [...list, { task: newValue, id: uuidv4() }]
@@ -16,6 +17,7 @@ function ToDo(){
     setNewValue(event.target.value)
   }
   
+  // function callback when we want to delete task --> That needs to be done using filter on arrays
   let deleteTask = function(id){
     let filterList = toDolist.filter( function(itemObject){
       return itemObject.id != id
@@ -24,6 +26,15 @@ function ToDo(){
     setToDolist(filterList)
   }
 
+  // function callback when we want to update task --> That needs to be done using .map function on Arrays
+  let upperCaseAll = function(){
+    setToDolist( function(prevToDolist){
+      return prevToDolist.map( (toDo) => {
+        return {...toDo, task: toDo.task.toUpperCase()}
+      } )
+    } )
+  }
+  
   return(
     <>
       <center>
@@ -40,6 +51,7 @@ function ToDo(){
             </li>
         ) )}
       </ul>
+      <button onClick={upperCaseAll} >UpperCase All tasks</button>
       </center>
     </>
   );
