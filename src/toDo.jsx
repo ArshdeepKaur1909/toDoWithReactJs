@@ -1,7 +1,8 @@
 import {useState} from "react";
+import {v4 as uuidv4} from "uuid";
 
 function ToDo(){
-  const [toDolist, setToDolist] = useState({}); // Now converting array of toDo list tasks into array of each toDo task in object with id and task key
+  const [toDolist, setToDolist] = useState([]); // Now converting array of toDo list tasks into array of each toDo task in object with id and task key
   const [newValue, setNewValue] = useState("");
   
   let addNewTask = function(){
@@ -26,10 +27,10 @@ function ToDo(){
       <input type="text" placeholder="Add Today's task" value={newValue} onChange={updateValue} />&nbsp;&nbsp;<button onClick={addNewTask}>Add Task</button>
       <ul>
         {toDolist.map( (taskObject) => (
-            <>
-            {/ * Each list child must have unique key property and we can that using npm package called uuid*/}
-            <li key={taskObject.id}>{taskObject.task}</li>&nbsp;&nbsp;<button onClick={deleteTask} >Delete Task</button>
-            </>
+            <li key={taskObject.id}>{taskObject.task} {/ * Each list child must have unique key property and we can that using npm package called uuid */}
+            &nbsp;&nbsp;  {/* Each top-level item inside a .map() should return a single element with a key prop. Right now, you’re returning a <> fragment with key on li, which won’t work as expected. */}
+            <button onClick={deleteTask} >Delete Task</button>
+            </li>
         ) )}
       </ul>
     </>
