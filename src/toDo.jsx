@@ -8,7 +8,7 @@ function ToDo(){
   // function callback when we want to add new task --> That needs to be done using ...spread operator or concat in Arrays
   let addNewTask = function(){
     setToDolist( function(list){
-      return [...list, { task: newValue, id: uuidv4() }]
+      return [...list, { task: newValue, id: uuidv4(), styles: {}}]
     } )
     setNewValue("")
   }
@@ -39,8 +39,29 @@ function ToDo(){
   let upperCase = function(id){
     setToDolist( function(prevToDolist){
       return prevToDolist.map( function(toDo){
-        if(toDo.id == id){
+        if(toDo.id === id){
           return {...toDo, task: toDo.task.toUpperCase()};
+        }
+        else{
+          return {...toDo};
+        }
+      } )
+    } )
+  }
+
+  let markDoneAll = function(){
+    setToDolist( function(prevToDolist){
+      return prevToDolist.map( (toDo) => {
+        return {...toDo, styles: {textDecoration: "line-through"}}
+      } )
+    } )
+  }
+
+  let markDone = function(id){
+    setToDolist( function(prevToDolist){
+      return prevToDolist.map( function(toDo){
+        if(toDo.id === id){
+          return {...toDo, styles: {textDecoration: "line-through"}};
         }
         else{
           return {...toDo};
@@ -57,16 +78,21 @@ function ToDo(){
       <input type="text" placeholder="Add Today's task" value={newValue} onChange={updateValue} />&nbsp;&nbsp;<button onClick={addNewTask}>Add Task</button>
       <ul>
         {toDolist.map( (taskObject) => (
-            <li key= {taskObject.id} >
+            <li key= {taskObject.id} style={taskObject.styles}>
               {taskObject.task} 
               {/* Each list child must have unique key property and we can that using npm package called uuid  */}
               &nbsp;&nbsp;  {/* Each top-level item inside a .map() should return a single element with a key prop. Right now, you’re returning a <> fragment with key on li, which won’t work as expected.  */}
               <button onClick={() => (deleteTask(taskObject.id))} > Delete Task</button>
+              &nbsp;&nbsp;
               <button onClick={() => (upperCase(taskObject.id))}>UpperCase It</button>
+              &nbsp;&nbsp;
+              <button onClick={() => (markDone(taskObject.id))}>Mark as Done</button>
             </li>
         ) )}
       </ul>
       <button onClick={upperCaseAll} >UpperCase All tasks</button>
+      &nbsp;&nbsp;
+      <button onClick={markDoneAll}>Mark as Done All</button>
       </center>
     </>
   );
