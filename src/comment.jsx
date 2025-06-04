@@ -1,7 +1,7 @@
 import {useState} from "react";
 import "./comment.css";
 
-function Comment(){
+function Comment({addComment}){
     const [inputObject, setInputObject] = useState({
         username: "",
         remarks: "",
@@ -19,6 +19,7 @@ function Comment(){
 
     let submitForm = function(event){
       event.preventDefault();
+      addComment(inputObject);
       setInputObject({
         username: "",
         remarks: "",
