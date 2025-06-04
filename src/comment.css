@@ -1,0 +1,17 @@
+.form{
+    height: 20rem;
+    width: 30rem;
+    padding: 10px;
+}
+form{
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+}
+button[type="submit"]{
+    width: 100px;
+    height: 50px;
+    position: relative;
+    top: 100%;
+    left: 35%;
+}

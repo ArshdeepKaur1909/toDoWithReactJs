@@ -1,4 +1,5 @@
 import {useState} from "react";
+import "./comment.css";
 
 function Comment(){
     const [inputObject, setInputObject] = useState({
@@ -26,13 +27,14 @@ function Comment(){
     }
 
     return (
-    <div>
+    <div className="form" >
     <h1>Give Comment!</h1>
     <form onSubmit={submitForm} >
       <label htmlFor="username" >Enter Username: </label>
       <input onChange={handleEventChange} id="username" placeholder="Enter username" name="username" type="text" value={inputObject.username}/>
       <br />
-      <textarea onChange={handleEventChange} name="remarks" value={inputObject.remarks}>Add your remarks</textarea>
+      <label htmlFor="remarks" >Add your Remarks: </label>
+      <textarea onChange={handleEventChange} name="remarks" value={inputObject.remarks} id="remarks" ></textarea>
       <br />
       <label htmlFor="rating" >Enter Rating: </label>
       <input onChange={handleEventChange} id="rating" placeholder="Enter rating" name="rating" type="number" min={1} max={5} value={inputObject.rating}/>
