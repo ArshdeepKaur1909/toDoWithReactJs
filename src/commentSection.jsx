@@ -1,5 +1,6 @@
 import {useState} from "react";
 import Comment from "./comment.jsx";
+import CommentFormik from "./commentFormik.jsx"
 
 function CommentSection(){
   const [commentSection, setCommentSection] = useState([]);
@@ -19,7 +20,7 @@ let addComment = function(comment){
           <div>{comment.remarks}  &nbsp;&nbsp;&nbsp;  &#11088;{comment.rating} &nbsp;&nbsp;&nbsp; -@{comment.username}</div>
         ) )}
     </div>
-    <Comment addComment={addComment} ></Comment>
+    <CommentFormik addComment={addComment} ></CommentFormik>
     </>
   );
 }
